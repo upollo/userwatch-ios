@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+// Protocol buffer definitions used when interacting with Userwatch's customer
+// libraries.
+
+package uwproto;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/userwatch/uw1/backend_prototype/server/userwat.ch/uw-proto;uw_proto";
+option objc_class_prefix = "UwProto";
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_LOGIN = 1;
+  EVENT_TYPE_REGISTER = 2;
+  EVENT_TYPE_ATTEMPT_PURCHASE = 3;
+  EVENT_TYPE_COMPLETE_PURCHASE = 4;
+  EVENT_TYPE_ATTEMPT_REDEEM_OFFER = 5;
+  EVENT_TYPE_REDEEMED_OFFER = 6;
+  EVENT_TYPE_VERIFY_DEVICE = 7;
+  EVENT_TYPE_REPORT_DEVICE = 8;
+  EVENT_TYPE_ADD_TEAM_MEMBER = 9;
+  EVENT_TYPE_REMOVE_TEAM_MEMBER = 10;
+  EVENT_TYPE_ADD_PAYMENT_METHOD = 11;
+  EVENT_TYPE_ATTEMPT_DELETE_ACCOUNT = 12;
+  EVENT_TYPE_CUSTOMER_DEFINED = 13;
+  EVENT_TYPE_START_SUBSCRIPTION = 14;
+  EVENT_TYPE_END_SUBSCRIPTION = 15;
+  EVENT_TYPE_HEARTBEAT = 16;
+  EVENT_TYPE_PAGE_VISIT = 17;
+  EVENT_TYPE_LOGIN_SUCCESS = 18;
+  EVENT_TYPE_REGISTER_SUCCESS = 19;
+}
+
+message AnalysisResponse {
+  // Recommended action based on the Userwatch analysis.
+  Outcome action = 1;
+
+  // All flags the Userwatch analysis identified.
+  // Note any flags with an ignored_until value after the present should
+  // generally be treated as if they were not present. Those ignored flags are
+  // already excluded from factoring into the action Outcome above.
+  repeated Flag flags = 6;
+
+
+  // True if Userwatch detects a VPN is being used.
+  // Deprecated: This is available as in flags as type USING_VPN
+  bool is_using_vpn = 3 [deprecated = true];
+
+  // True if Userwatch detects TOR is being used.
+  // Deprecated: This is available in flags as type USING_TOR
+  bool is_using_tor = 4 [deprecated = true];
+
+
+  // Information Userwatch discerned about the user.
+  UserInfo user_info = 7;
+
+  // Information Userwatch discerned about the device.
+  DeviceInfo device_info = 8;
+
+  // Geographic information discerned by Userwatch.
+  GeoInfo geo_info = 9;
+
+
+  // TODO: Is this always set, or only for certain outcomes?
+  // TODO: Does this represent the set of challenges Userwatch currently
+  //       supports, or specifically the ones which are considered sufficient
+  //       to deal with the current flags?
+  repeated ChallengeType supported_challenges = 11;
+
+
+  // Unique identifier of the request which resulted in this analysis.
+  string request_id = 10;
+
+  // Event type which resulted in this analysis being done.
+  EventType event_type = 12;
+
+  reserved 2, 5;
+  reserved "trustScore", "history";
+}
+
+enum Outcome {
+  OUTCOME_UNSPECIFIED = 0;
+  OUTCOME_DENY = 1;
+  OUTCOME_CHALLENGE = 2;
+  OUTCOME_PERMIT = 3;
+  OUTCOME_OFFER = 4;
+  OUTCOME_LOG = 5;
+  OUTCOME_CUSTOMER_DEFINED = 6;
+}
+
+message Flag {
+  FlagType type = 1;
+  google.protobuf.Timestamp first_flagged = 2;
+  google.protobuf.Timestamp most_recently_flagged = 3;
+
+  // A nil ignored_until value, or a non-nil value before the present, means
+  // this flag is set and should be treated accordingly.
+  // A non-nil ignored_until value which is after the present indicates this
+  // flag is set, but should be ignored — i.e. treated as if not flagged.
+  // The max time further indicates that the flag should be ignored forever.
+  google.protobuf.Timestamp ignored_until = 4;
+}
+
+enum FlagType {
+  FLAG_TYPE_UNSPECIFIED = 0;
+  FLAG_TYPE_ACCOUNT_SHARING = 1;
+  FLAG_TYPE_ACCOUNT_SHARING_SAME_HOUSEHOLD = 2;
+  FLAG_TYPE_SUSPECTED_ACCOUNT_COMPROMISE = 3;
+  FLAG_TYPE_CREDENTIAL_STUFFING = 4;
+  FLAG_TYPE_REPEATED_REDEMPTION = 5;
+  FLAG_TYPE_SUSPECTED_FRAUD = 6;
+  FLAG_TYPE_REPEATED_SIGNUP = 7;
+  FLAG_TYPE_SUSPECTED_BOT = 8;
+  FLAG_TYPE_RATE_LIMITED_IP = 9;
+  FLAG_TYPE_RATE_LIMITED_DEVICE = 10;
+  FLAG_TYPE_BLACKLISTED_IP = 11;
+  FLAG_TYPE_BLACKLISTED_DEVICE  = 12; // DEPRECATED
+  FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_LOCATION = 13;
+  FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_DEVICE = 14;
+  FLAG_TYPE_REPEATED_ACTION = 15;
+  FLAG_TYPE_DISPOSABLE_EMAIL = 16;
+  FLAG_TYPE_USING_VPN = 17;
+  FLAG_TYPE_USING_TOR = 18;
+  FLAG_TYPE_DEVICE_BLOCKED_GLOBALLY = 19;
+  FLAG_TYPE_DEVICE_BLOCKED_FOR_THIS_USER = 20;
+  FLAG_TYPE_INVALID_EMAIL = 21;
+  FLAG_TYPE_INVALID_PHONE_NUMBER = 23;
+  FLAG_TYPE_INVALID_PHONE_TYPE = 22;
+  FLAG_TYPE_MULTIPLE_ACCOUNTS = 24;
+  FLAG_TYPE_ALREADY_USED_EMAIL = 25;
+  FLAG_TYPE_ALREADY_USED_PHONE = 26;
+}
+
+message UserInfo {
+  string user_id = 1;
+  string user_email = 2;
+  string user_phone = 3;
+  string user_name = 4;
+  string user_image = 5;
+  map<string, string> customer_supplied_values = 6;
+}
+
+message DeviceInfo {
+  string device_id = 1;
+  string os = 2;
+  DeviceClass device_class = 3;
+  string device_name = 4;
+  string user_agent = 5;
+  string browser = 6;
+  google.protobuf.Timestamp last_used = 7;
+  bool blocked_globally = 8;
+
+  // Will always be false if request is unrelated to a single user
+  bool blocked_for_this_user = 9;
+}
+
+enum DeviceClass {
+  DEVICE_CLASS_DESKTOP = 0;
+  DEVICE_CLASS_MOBILE = 1;
+  DEVICE_CLASS_TABLET = 2;
+  DEVICE_CLASS_GOODBOT = 3;
+  DEVICE_CLASS_BADBOT = 4;
+  DEVICE_CLASS_UNKNOWN = 5;
+}
+
+message GeoInfo {
+  LatLng geo_ip_latlng = 1;
+  string geo_ip_city = 2;
+  string geo_ip_subregion = 3;
+  string geo_ip_region = 4;
+  google.protobuf.Timestamp last_here = 5;
+}
+
+message LatLng {
+  // The latitude in degrees. It must be in the range [-90.0, +90.0].
+  double latitude = 1;
+
+  // The longitude in degrees. It must be in the range [-180.0, +180.0].
+  double longitude = 2;
+}
+
+enum ChallengeType {
+  CHALLENGE_TYPE_UNSPECIFIED = 0;
+  CHALLENGE_TYPE_WEBAUTHN = 1;
+  CHALLENGE_TYPE_SMS = 2;
+  CHALLENGE_TYPE_EMAIL = 3;
+  CHALLENGE_TYPE_BANKSY = 4;
+}
