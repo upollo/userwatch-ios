@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Userwatch iOS core internals. Use the Userwatch pod instead.'
   s.license          = { :type => 'Proprietary', :file => 'LICENSE.md' }
 
-  s.author           = { 'Userwatch' => 'cocoapods@userwat.ch' }
+  s.author           = { 'Userwatch Team' => 'cocoapods@userwat.ch' }
   s.homepage         = 'https://userwat.ch'
   s.social_media_url = 'https://twitter.com/WeAreUserwatch'
 

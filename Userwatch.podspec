@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 Turn repeat signups and account sharers into paying customers while keeping bad actors out.
 DESC
 
-  s.author           = { 'Userwatch' => 'cocoapods@userwat.ch' }
+  s.author           = { 'Userwatch Team' => 'cocoapods@userwat.ch' }
   s.homepage         = 'https://userwat.ch'
   s.source           = { :git => 'https://github.com/Userwatch/userwatch-ios.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/WeAreUserwatch'
