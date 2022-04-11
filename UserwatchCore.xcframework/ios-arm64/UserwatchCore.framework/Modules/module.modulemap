@@ -1,0 +1,6 @@
+framework module UserwatchCore {
+  umbrella header "UserwatchCore.h"
+
+  export *
+  module * { export * }
+}
