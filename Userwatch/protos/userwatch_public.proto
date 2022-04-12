@@ -80,6 +80,14 @@ message AnalysisResponse {
   reserved "trustScore", "history";
 }
 
+message ValidateResponse {
+  // A token to be sent to your server for use with a Userwatch server API.
+  string validation_token = 1;
+
+  reserved 2;
+  reserved "validation_signature";
+}
+
 enum Outcome {
   OUTCOME_UNSPECIFIED = 0;
   OUTCOME_DENY = 1;

@@ -17,22 +17,50 @@ public class UserwatchClient {
     callback: @escaping (Uwproto_AnalysisResponse) -> Void,
     failure: @escaping (Error) -> Void) {
 
-      self.core.identify(
-        forUid: uid,
-        email: email,
-        phone: phone,
-        username: username,
-        did: Int32(eventtype.rawValue),
-        callback: { resp in
-          var ar: Uwproto_AnalysisResponse
-          do {
-            ar = try Uwproto_AnalysisResponse.init(serializedData: resp)
-          } catch {
-            failure(error)
-            return
-          }
-          callback(ar)
-        },
-        failure: failure)
-    }
+    self.core.identify(
+      forUid: uid,
+      email: email,
+      phone: phone,
+      username: username,
+      did: Int32(eventtype.rawValue),
+      callback: { resp in
+        var ar: Uwproto_AnalysisResponse
+        do {
+          ar = try Uwproto_AnalysisResponse.init(serializedData: resp)
+        } catch {
+          failure(error)
+          return
+        }
+        callback(ar)
+      },
+      failure: failure)
+  }
+
+  public func validate(
+    uid: String?,
+    email: String?,
+    phone: String?,
+    username: String?,
+    did eventtype: Uwproto_EventType,
+    callback: @escaping (Uwproto_ValidateResponse) -> Void,
+    failure: @escaping (Error) -> Void) {
+
+    self.core.validate(
+      forUid: uid,
+      email: email,
+      phone: phone,
+      username: username,
+      did: Int32(eventtype.rawValue),
+      callback: { resp in
+        var vr: Uwproto_ValidateResponse
+        do {
+          vr = try Uwproto_ValidateResponse.init(serializedData: resp)
+        } catch {
+          failure(error)
+          return
+        }
+        callback(vr)
+      },
+      failure: failure)
+  }
 }

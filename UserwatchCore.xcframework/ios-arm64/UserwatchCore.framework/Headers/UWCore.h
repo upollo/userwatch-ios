@@ -15,6 +15,14 @@
               callback:(nonnull void (^)(NSData * _Nonnull))callback
                failure:(nonnull void (^)(NSError * _Nonnull))failure;
 
+- (void)validateForUid:(nullable NSString *)uid
+                 email:(nullable NSString *)email
+                 phone:(nullable NSString *)phone
+              username:(nullable NSString *)username
+                   did:(int)eventtype
+              callback:(nonnull void (^)(NSData * _Nonnull))callback
+               failure:(nonnull void (^)(NSError * _Nonnull))failure;
+
 @end
 
 #endif /* UWCore_h */
