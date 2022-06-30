@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/UWCore.h</key>
 		<data>
-		R4QVo7FbeCyBAvXPHmxqHbymrJw=
+		iP3LhrgE7U+7c1OLXeaKUeMQ1bo=
 		</data>
 		<key>Headers/UserwatchCore.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		04g4YE0ZIur7xZIAfG0O53lbMUk=
+		1yEtmQC8EOArg2nnZpp7aqRp0wM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -22,11 +22,11 @@
 		</data>
 		<key>gRPCCertificates.bundle/Info.plist</key>
 		<data>
-		u8PjICfFztXNpNuBmDkpOY0jbjY=
+		jceTQtmjF/x/uVUOzTghUAtqUSU=
 		</data>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeDirectory</key>
 		<data>
-		cext60q4jU6BI269Zid/P3UDo0g=
+		zPKwAtL4Va2NvddoaoTzhdgc8Mk=
 		</data>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeRequirements</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeRequirements-1</key>
 		<data>
-		PdQDTSDv/nwF9hRFKb0NvbZRmi8=
+		HWBheuDc7v0NeNuDB3iWdGzyOdQ=
 		</data>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeResources</key>
 		<data>
@@ -55,7 +55,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BW/zXbhHk/YOcft2rtGBPRxY8sUmzKA+0QI8IDIz3oc=
+			D5aLy4XpNCsPgodXHKgAirCF0NUBvSW8RX+U8aBCbfE=
 			</data>
 		</dict>
 		<key>Headers/UserwatchCore.h</key>
@@ -76,14 +76,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OuZ8M10BqbYxuvIjjuMnBXyo2xyF3OQxucYTTYetDq8=
+			fvqEoeC7O6Fr4VdjCRcswPzWH2MuPWqGsVwRxnMQWfA=
 			</data>
 		</dict>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeDirectory</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ly8bA1/1u6ErZsXBJRWTrhkM+Ev8nm4Ok+NnuSMq/eQ=
+			1yuHcFM3Q4tyVZoexOArLV+LuBxcyj5Xkt+fIg0CBH4=
 			</data>
 		</dict>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeRequirements</key>
@@ -97,7 +97,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u/phrYLECbdAk9o/EHeMJ1h+YX7SrKqqwjxi3IcY44M=
+			deu5pUMaGviHuACyrEbXI6EOE5NXoHuwMDlxf6xOCJs=
 			</data>
 		</dict>
 		<key>gRPCCertificates.bundle/_CodeSignature/CodeResources</key>
