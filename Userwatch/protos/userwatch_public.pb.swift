@@ -42,6 +42,7 @@ public enum Uwproto_EventType: SwiftProtobuf.Enum {
   case pageVisit // = 17
   case loginSuccess // = 18
   case registerSuccess // = 19
+  case `internal` // = 20
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -70,6 +71,7 @@ public enum Uwproto_EventType: SwiftProtobuf.Enum {
     case 17: self = .pageVisit
     case 18: self = .loginSuccess
     case 19: self = .registerSuccess
+    case 20: self = .internal
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -96,6 +98,7 @@ public enum Uwproto_EventType: SwiftProtobuf.Enum {
     case .pageVisit: return 17
     case .loginSuccess: return 18
     case .registerSuccess: return 19
+    case .internal: return 20
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -127,6 +130,7 @@ extension Uwproto_EventType: CaseIterable {
     .pageVisit,
     .loginSuccess,
     .registerSuccess,
+    .internal,
   ]
 }
 
@@ -192,6 +196,7 @@ extension Uwproto_Outcome: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// protolint:disable ENUM_FIELD_NAMES_PREFIX
 public enum Uwproto_FlagType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case unspecified // = 0
@@ -334,9 +339,61 @@ extension Uwproto_FlagType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Uwproto_AddressType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case home // = 1
+  case work // = 2
+  case other // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .home
+    case 2: self = .work
+    case 3: self = .other
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .home: return 1
+    case .work: return 2
+    case .other: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Uwproto_AddressType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Uwproto_AddressType] = [
+    .unspecified,
+    .home,
+    .work,
+    .other,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public enum Uwproto_DeviceClass: SwiftProtobuf.Enum {
   public typealias RawValue = Int
+
+  /// protolint:disable ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
   case desktop // = 0
+
+  /// protolint:enable ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
   case mobile // = 1
   case tablet // = 2
   case goodbot // = 3
@@ -442,6 +499,218 @@ extension Uwproto_ChallengeType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Uwproto_EmailInvalidReason: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case format // = 1
+  case invalidDomain // = 2
+  case disposable // = 3
+  case invalidUser // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .format
+    case 2: self = .invalidDomain
+    case 3: self = .disposable
+    case 4: self = .invalidUser
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .format: return 1
+    case .invalidDomain: return 2
+    case .disposable: return 3
+    case .invalidUser: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Uwproto_EmailInvalidReason: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Uwproto_EmailInvalidReason] = [
+    .unspecified,
+    .format,
+    .invalidDomain,
+    .disposable,
+    .invalidUser,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Uwproto_PhoneLineType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case mobile // = 1
+  case landline // = 2
+  case voip // = 3
+  case invalid // = 4
+  case prepaid // = 5
+  case other // = 6
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .mobile
+    case 2: self = .landline
+    case 3: self = .voip
+    case 4: self = .invalid
+    case 5: self = .prepaid
+    case 6: self = .other
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .mobile: return 1
+    case .landline: return 2
+    case .voip: return 3
+    case .invalid: return 4
+    case .prepaid: return 5
+    case .other: return 6
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Uwproto_PhoneLineType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Uwproto_PhoneLineType] = [
+    .unspecified,
+    .mobile,
+    .landline,
+    .voip,
+    .invalid,
+    .prepaid,
+    .other,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Uwproto_PhoneInvalidReason: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case numberFormat // = 1
+  case inactiveLine // = 2
+  case voip // = 3
+  case invalidType // = 4
+  case disposablePhone // = 5
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .numberFormat
+    case 2: self = .inactiveLine
+    case 3: self = .voip
+    case 4: self = .invalidType
+    case 5: self = .disposablePhone
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .numberFormat: return 1
+    case .inactiveLine: return 2
+    case .voip: return 3
+    case .invalidType: return 4
+    case .disposablePhone: return 5
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Uwproto_PhoneInvalidReason: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Uwproto_PhoneInvalidReason] = [
+    .unspecified,
+    .numberFormat,
+    .inactiveLine,
+    .voip,
+    .invalidType,
+    .disposablePhone,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Uwproto_NullableBool: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case unspecified // = 0
+  case `false` // = 1
+  case `true` // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unspecified
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .false
+    case 2: self = .true
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .false: return 1
+    case .true: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Uwproto_NullableBool: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Uwproto_NullableBool] = [
+    .unspecified,
+    .false,
+    .true,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct Uwproto_AnalysisResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -506,10 +775,10 @@ public struct Uwproto_AnalysisResponse {
   /// Clears the value of `geoInfo`. Subsequent reads from it will return its default value.
   public mutating func clearGeoInfo() {_uniqueStorage()._geoInfo = nil}
 
-  /// TODO: Is this always set, or only for certain outcomes?
-  /// TODO: Does this represent the set of challenges Userwatch currently
-  ///       supports, or specifically the ones which are considered sufficient
-  ///       to deal with the current flags?
+  ///X TODO: Is this always set, or only for certain outcomes?
+  ///X TODO: Does this represent the set of challenges Userwatch currently
+  ///X       supports, or specifically the ones which are considered sufficient
+  ///X       to deal with the current flags?
   public var supportedChallenges: [Uwproto_ChallengeType] {
     get {return _storage._supportedChallenges}
     set {_uniqueStorage()._supportedChallenges = newValue}
@@ -534,13 +803,15 @@ public struct Uwproto_AnalysisResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Uwproto_ValidateResponse {
+public struct Uwproto_EventResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// A token to be sent to your server for use with a Userwatch server API.
-  public var validationToken: String = String()
+  /// A token which can be sent to your own server so it can dig into the
+  /// assessment of a user following events being reported for tracking by
+  /// your client application.
+  public var eventToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -595,6 +866,18 @@ public struct Uwproto_Flag {
   fileprivate var _ignoredUntil: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+public struct Uwproto_Flags {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var flags: [Uwproto_Flag] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Uwproto_UserInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -612,9 +895,35 @@ public struct Uwproto_UserInfo {
 
   public var customerSuppliedValues: Dictionary<String,String> = [:]
 
+  /// Address information, this would typically be shipping or home address
+  public var addresses: [Uwproto_PhysicalAddress] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
+
+public struct Uwproto_PhysicalAddress {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var type: Uwproto_AddressType = .unspecified
+
+  public var address: Google_Type_PostalAddress {
+    get {return _address ?? Google_Type_PostalAddress()}
+    set {_address = newValue}
+  }
+  /// Returns true if `address` has been explicitly set.
+  public var hasAddress: Bool {return self._address != nil}
+  /// Clears the value of `address`. Subsequent reads from it will return its default value.
+  public mutating func clearAddress() {self._address = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _address: Google_Type_PostalAddress? = nil
 }
 
 public struct Uwproto_DeviceInfo {
@@ -708,19 +1017,142 @@ public struct Uwproto_LatLng {
   public init() {}
 }
 
+public struct Uwproto_Event {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var eventType: Uwproto_Event.OneOf_EventType? = nil
+
+  public var eventTypeEnum: Uwproto_EventType {
+    get {
+      if case .eventTypeEnum(let v)? = eventType {return v}
+      return .unspecified
+    }
+    set {eventType = .eventTypeEnum(newValue)}
+  }
+
+  public var customerDefinedEventType: String {
+    get {
+      if case .customerDefinedEventType(let v)? = eventType {return v}
+      return String()
+    }
+    set {eventType = .customerDefinedEventType(newValue)}
+  }
+
+  public var timestamp: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _timestamp ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_timestamp = newValue}
+  }
+  /// Returns true if `timestamp` has been explicitly set.
+  public var hasTimestamp: Bool {return self._timestamp != nil}
+  /// Clears the value of `timestamp`. Subsequent reads from it will return its default value.
+  public mutating func clearTimestamp() {self._timestamp = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_EventType: Equatable {
+    case eventTypeEnum(Uwproto_EventType)
+    case customerDefinedEventType(String)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: Uwproto_Event.OneOf_EventType, rhs: Uwproto_Event.OneOf_EventType) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.eventTypeEnum, .eventTypeEnum): return {
+        guard case .eventTypeEnum(let l) = lhs, case .eventTypeEnum(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.customerDefinedEventType, .customerDefinedEventType): return {
+        guard case .customerDefinedEventType(let l) = lhs, case .customerDefinedEventType(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+
+  fileprivate var _timestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Uwproto_CheckEmailResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var valid: Bool = false
+
+  public var reason: Uwproto_EmailInvalidReason = .unspecified
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Uwproto_CheckPasswordResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var compromised: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Uwproto_CheckPhoneResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var valid: Bool = false
+
+  public var reason: Uwproto_PhoneInvalidReason = .unspecified
+
+  public var countryCode: String = String()
+
+  public var lineType: Uwproto_PhoneLineType = .unspecified
+
+  public var carrier: String = String()
+
+  public var cleanNumber: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Uwproto_EventType: @unchecked Sendable {}
 extension Uwproto_Outcome: @unchecked Sendable {}
 extension Uwproto_FlagType: @unchecked Sendable {}
+extension Uwproto_AddressType: @unchecked Sendable {}
 extension Uwproto_DeviceClass: @unchecked Sendable {}
 extension Uwproto_ChallengeType: @unchecked Sendable {}
+extension Uwproto_EmailInvalidReason: @unchecked Sendable {}
+extension Uwproto_PhoneLineType: @unchecked Sendable {}
+extension Uwproto_PhoneInvalidReason: @unchecked Sendable {}
+extension Uwproto_NullableBool: @unchecked Sendable {}
 extension Uwproto_AnalysisResponse: @unchecked Sendable {}
-extension Uwproto_ValidateResponse: @unchecked Sendable {}
+extension Uwproto_EventResponse: @unchecked Sendable {}
 extension Uwproto_Flag: @unchecked Sendable {}
+extension Uwproto_Flags: @unchecked Sendable {}
 extension Uwproto_UserInfo: @unchecked Sendable {}
+extension Uwproto_PhysicalAddress: @unchecked Sendable {}
 extension Uwproto_DeviceInfo: @unchecked Sendable {}
 extension Uwproto_GeoInfo: @unchecked Sendable {}
 extension Uwproto_LatLng: @unchecked Sendable {}
+extension Uwproto_Event: @unchecked Sendable {}
+extension Uwproto_Event.OneOf_EventType: @unchecked Sendable {}
+extension Uwproto_CheckEmailResponse: @unchecked Sendable {}
+extension Uwproto_CheckPasswordResponse: @unchecked Sendable {}
+extension Uwproto_CheckPhoneResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -749,6 +1181,7 @@ extension Uwproto_EventType: SwiftProtobuf._ProtoNameProviding {
     17: .same(proto: "EVENT_TYPE_PAGE_VISIT"),
     18: .same(proto: "EVENT_TYPE_LOGIN_SUCCESS"),
     19: .same(proto: "EVENT_TYPE_REGISTER_SUCCESS"),
+    20: .same(proto: "EVENT_TYPE_INTERNAL"),
   ]
 }
 
@@ -767,32 +1200,41 @@ extension Uwproto_Outcome: SwiftProtobuf._ProtoNameProviding {
 extension Uwproto_FlagType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "FLAG_TYPE_UNSPECIFIED"),
-    1: .same(proto: "FLAG_TYPE_ACCOUNT_SHARING"),
-    2: .same(proto: "FLAG_TYPE_ACCOUNT_SHARING_SAME_HOUSEHOLD"),
-    3: .same(proto: "FLAG_TYPE_SUSPECTED_ACCOUNT_COMPROMISE"),
-    4: .same(proto: "FLAG_TYPE_CREDENTIAL_STUFFING"),
-    5: .same(proto: "FLAG_TYPE_REPEATED_REDEMPTION"),
-    6: .same(proto: "FLAG_TYPE_SUSPECTED_FRAUD"),
-    7: .same(proto: "FLAG_TYPE_REPEATED_SIGNUP"),
-    8: .same(proto: "FLAG_TYPE_SUSPECTED_BOT"),
-    9: .same(proto: "FLAG_TYPE_RATE_LIMITED_IP"),
-    10: .same(proto: "FLAG_TYPE_RATE_LIMITED_DEVICE"),
-    11: .same(proto: "FLAG_TYPE_BLACKLISTED_IP"),
-    12: .same(proto: "FLAG_TYPE_BLACKLISTED_DEVICE"),
-    13: .same(proto: "FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_LOCATION"),
-    14: .same(proto: "FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_DEVICE"),
-    15: .same(proto: "FLAG_TYPE_REPEATED_ACTION"),
-    16: .same(proto: "FLAG_TYPE_DISPOSABLE_EMAIL"),
-    17: .same(proto: "FLAG_TYPE_USING_VPN"),
-    18: .same(proto: "FLAG_TYPE_USING_TOR"),
-    19: .same(proto: "FLAG_TYPE_DEVICE_BLOCKED_GLOBALLY"),
-    20: .same(proto: "FLAG_TYPE_DEVICE_BLOCKED_FOR_THIS_USER"),
-    21: .same(proto: "FLAG_TYPE_INVALID_EMAIL"),
-    22: .same(proto: "FLAG_TYPE_INVALID_PHONE_TYPE"),
-    23: .same(proto: "FLAG_TYPE_INVALID_PHONE_NUMBER"),
-    24: .same(proto: "FLAG_TYPE_MULTIPLE_ACCOUNTS"),
-    25: .same(proto: "FLAG_TYPE_ALREADY_USED_EMAIL"),
-    26: .same(proto: "FLAG_TYPE_ALREADY_USED_PHONE"),
+    1: .same(proto: "ACCOUNT_SHARING"),
+    2: .same(proto: "ACCOUNT_SHARING_SAME_HOUSEHOLD"),
+    3: .same(proto: "SUSPECTED_ACCOUNT_COMPROMISE"),
+    4: .same(proto: "CREDENTIAL_STUFFING"),
+    5: .same(proto: "REPEATED_REDEMPTION"),
+    6: .same(proto: "SUSPECTED_FRAUD"),
+    7: .same(proto: "REPEATED_SIGNUP"),
+    8: .same(proto: "SUSPECTED_BOT"),
+    9: .same(proto: "RATE_LIMITED_IP"),
+    10: .same(proto: "RATE_LIMITED_DEVICE"),
+    11: .same(proto: "BLACKLISTED_IP"),
+    12: .same(proto: "BLACKLISTED_DEVICE"),
+    13: .same(proto: "ACCOUNT_COMPROMISE_NEW_LOCATION"),
+    14: .same(proto: "ACCOUNT_COMPROMISE_NEW_DEVICE"),
+    15: .same(proto: "REPEATED_ACTION"),
+    16: .same(proto: "DISPOSABLE_EMAIL"),
+    17: .same(proto: "USING_VPN"),
+    18: .same(proto: "USING_TOR"),
+    19: .same(proto: "DEVICE_BLOCKED_GLOBALLY"),
+    20: .same(proto: "DEVICE_BLOCKED_FOR_THIS_USER"),
+    21: .same(proto: "INVALID_EMAIL"),
+    22: .same(proto: "INVALID_PHONE_TYPE"),
+    23: .same(proto: "INVALID_PHONE_NUMBER"),
+    24: .same(proto: "MULTIPLE_ACCOUNTS"),
+    25: .same(proto: "ALREADY_USED_EMAIL"),
+    26: .same(proto: "ALREADY_USED_PHONE"),
+  ]
+}
+
+extension Uwproto_AddressType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ADDRESS_TYPE_UNSPECIFIED"),
+    1: .same(proto: "ADDRESS_TYPE_HOME"),
+    2: .same(proto: "ADDRESS_TYPE_WORK"),
+    3: .same(proto: "ADDRESS_TYPE_OTHER"),
   ]
 }
 
@@ -814,6 +1256,47 @@ extension Uwproto_ChallengeType: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "CHALLENGE_TYPE_SMS"),
     3: .same(proto: "CHALLENGE_TYPE_EMAIL"),
     4: .same(proto: "CHALLENGE_TYPE_BANKSY"),
+  ]
+}
+
+extension Uwproto_EmailInvalidReason: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "EMAIL_INVALID_REASON_UNSPECIFIED"),
+    1: .same(proto: "EMAIL_INVALID_REASON_FORMAT"),
+    2: .same(proto: "EMAIL_INVALID_REASON_INVALID_DOMAIN"),
+    3: .same(proto: "EMAIL_INVALID_REASON_DISPOSABLE"),
+    4: .same(proto: "EMAIL_INVALID_REASON_INVALID_USER"),
+  ]
+}
+
+extension Uwproto_PhoneLineType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "PHONE_LINE_TYPE_UNSPECIFIED"),
+    1: .same(proto: "PHONE_LINE_TYPE_MOBILE"),
+    2: .same(proto: "PHONE_LINE_TYPE_LANDLINE"),
+    3: .same(proto: "PHONE_LINE_TYPE_VOIP"),
+    4: .same(proto: "PHONE_LINE_TYPE_INVALID"),
+    5: .same(proto: "PHONE_LINE_TYPE_PREPAID"),
+    6: .same(proto: "PHONE_LINE_TYPE_OTHER"),
+  ]
+}
+
+extension Uwproto_PhoneInvalidReason: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "PHONE_INVALID_REASON_UNSPECIFIED"),
+    1: .same(proto: "PHONE_INVALID_REASON_NUMBER_FORMAT"),
+    2: .same(proto: "PHONE_INVALID_REASON_INACTIVE_LINE"),
+    3: .same(proto: "PHONE_INVALID_REASON_VOIP"),
+    4: .same(proto: "PHONE_INVALID_REASON_INVALID_TYPE"),
+    5: .same(proto: "PHONE_INVALID_REASON_DISPOSABLE_PHONE"),
+  ]
+}
+
+extension Uwproto_NullableBool: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULLABLE_BOOL_UNSPECIFIED"),
+    1: .same(proto: "NULLABLE_BOOL_FALSE"),
+    2: .same(proto: "NULLABLE_BOOL_TRUE"),
   ]
 }
 
@@ -957,10 +1440,10 @@ extension Uwproto_AnalysisResponse: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
-extension Uwproto_ValidateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ValidateResponse"
+extension Uwproto_EventResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EventResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "validation_token"),
+    1: .standard(proto: "event_token"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -969,21 +1452,21 @@ extension Uwproto_ValidateResponse: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.validationToken) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.eventToken) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.validationToken.isEmpty {
-      try visitor.visitSingularStringField(value: self.validationToken, fieldNumber: 1)
+    if !self.eventToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.eventToken, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Uwproto_ValidateResponse, rhs: Uwproto_ValidateResponse) -> Bool {
-    if lhs.validationToken != rhs.validationToken {return false}
+  public static func ==(lhs: Uwproto_EventResponse, rhs: Uwproto_EventResponse) -> Bool {
+    if lhs.eventToken != rhs.eventToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1043,6 +1526,38 @@ extension Uwproto_Flag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
   }
 }
 
+extension Uwproto_Flags: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Flags"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "flags"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.flags) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.flags.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.flags, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_Flags, rhs: Uwproto_Flags) -> Bool {
+    if lhs.flags != rhs.flags {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Uwproto_UserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".UserInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1052,6 +1567,7 @@ extension Uwproto_UserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     4: .standard(proto: "user_name"),
     5: .standard(proto: "user_image"),
     6: .standard(proto: "customer_supplied_values"),
+    7: .same(proto: "addresses"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1066,6 +1582,7 @@ extension Uwproto_UserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 4: try { try decoder.decodeSingularStringField(value: &self.userName) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.userImage) }()
       case 6: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.customerSuppliedValues) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.addresses) }()
       default: break
       }
     }
@@ -1090,6 +1607,9 @@ extension Uwproto_UserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if !self.customerSuppliedValues.isEmpty {
       try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.customerSuppliedValues, fieldNumber: 6)
     }
+    if !self.addresses.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.addresses, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1100,6 +1620,49 @@ extension Uwproto_UserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.userName != rhs.userName {return false}
     if lhs.userImage != rhs.userImage {return false}
     if lhs.customerSuppliedValues != rhs.customerSuppliedValues {return false}
+    if lhs.addresses != rhs.addresses {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Uwproto_PhysicalAddress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".PhysicalAddress"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "address"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._address) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.type != .unspecified {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
+    try { if let v = self._address {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_PhysicalAddress, rhs: Uwproto_PhysicalAddress) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs._address != rhs._address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1282,6 +1845,204 @@ extension Uwproto_LatLng: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   public static func ==(lhs: Uwproto_LatLng, rhs: Uwproto_LatLng) -> Bool {
     if lhs.latitude != rhs.latitude {return false}
     if lhs.longitude != rhs.longitude {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Uwproto_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Event"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "event_type_enum"),
+    2: .standard(proto: "customer_defined_event_type"),
+    4: .same(proto: "timestamp"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: Uwproto_EventType?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {
+          if self.eventType != nil {try decoder.handleConflictingOneOf()}
+          self.eventType = .eventTypeEnum(v)
+        }
+      }()
+      case 2: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.eventType != nil {try decoder.handleConflictingOneOf()}
+          self.eventType = .customerDefinedEventType(v)
+        }
+      }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._timestamp) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.eventType {
+    case .eventTypeEnum?: try {
+      guard case .eventTypeEnum(let v)? = self.eventType else { preconditionFailure() }
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 1)
+    }()
+    case .customerDefinedEventType?: try {
+      guard case .customerDefinedEventType(let v)? = self.eventType else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
+    }
+    try { if let v = self._timestamp {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_Event, rhs: Uwproto_Event) -> Bool {
+    if lhs.eventType != rhs.eventType {return false}
+    if lhs._timestamp != rhs._timestamp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Uwproto_CheckEmailResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckEmailResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "valid"),
+    2: .same(proto: "reason"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.valid) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.valid != false {
+      try visitor.visitSingularBoolField(value: self.valid, fieldNumber: 1)
+    }
+    if self.reason != .unspecified {
+      try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_CheckEmailResponse, rhs: Uwproto_CheckEmailResponse) -> Bool {
+    if lhs.valid != rhs.valid {return false}
+    if lhs.reason != rhs.reason {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Uwproto_CheckPasswordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckPasswordResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "compromised"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.compromised) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.compromised != false {
+      try visitor.visitSingularBoolField(value: self.compromised, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_CheckPasswordResponse, rhs: Uwproto_CheckPasswordResponse) -> Bool {
+    if lhs.compromised != rhs.compromised {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Uwproto_CheckPhoneResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckPhoneResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "valid"),
+    2: .same(proto: "reason"),
+    3: .standard(proto: "country_code"),
+    4: .standard(proto: "line_type"),
+    5: .same(proto: "carrier"),
+    6: .standard(proto: "clean_number"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.valid) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.countryCode) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.lineType) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.carrier) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.cleanNumber) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.valid != false {
+      try visitor.visitSingularBoolField(value: self.valid, fieldNumber: 1)
+    }
+    if self.reason != .unspecified {
+      try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 2)
+    }
+    if !self.countryCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.countryCode, fieldNumber: 3)
+    }
+    if self.lineType != .unspecified {
+      try visitor.visitSingularEnumField(value: self.lineType, fieldNumber: 4)
+    }
+    if !self.carrier.isEmpty {
+      try visitor.visitSingularStringField(value: self.carrier, fieldNumber: 5)
+    }
+    if !self.cleanNumber.isEmpty {
+      try visitor.visitSingularStringField(value: self.cleanNumber, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Uwproto_CheckPhoneResponse, rhs: Uwproto_CheckPhoneResponse) -> Bool {
+    if lhs.valid != rhs.valid {return false}
+    if lhs.reason != rhs.reason {return false}
+    if lhs.countryCode != rhs.countryCode {return false}
+    if lhs.lineType != rhs.lineType {return false}
+    if lhs.carrier != rhs.carrier {return false}
+    if lhs.cleanNumber != rhs.cleanNumber {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

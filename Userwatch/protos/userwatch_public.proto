@@ -6,8 +6,12 @@ syntax = "proto3";
 package uwproto;
 
 import "google/protobuf/timestamp.proto";
+import "google/type/postal_address.proto";
 
-option go_package = "github.com/userwatch/uw1/backend_prototype/server/userwat.ch/uw-proto;uw_proto";
+
+option go_package = "github.com/userwatch/uw1/protos/uwproto";
+option java_multiple_files = true;
+option java_package = "co.userwatch.proto";
 option objc_class_prefix = "UwProto";
 
 enum EventType {
@@ -31,6 +35,7 @@ enum EventType {
   EVENT_TYPE_PAGE_VISIT = 17;
   EVENT_TYPE_LOGIN_SUCCESS = 18;
   EVENT_TYPE_REGISTER_SUCCESS = 19;
+  EVENT_TYPE_INTERNAL = 20;
 }
 
 message AnalysisResponse {
@@ -63,10 +68,6 @@ message AnalysisResponse {
   GeoInfo geo_info = 9;
 
 
-  // TODO: Is this always set, or only for certain outcomes?
-  // TODO: Does this represent the set of challenges Userwatch currently
-  //       supports, or specifically the ones which are considered sufficient
-  //       to deal with the current flags?
   repeated ChallengeType supported_challenges = 11;
 
 
@@ -80,9 +81,11 @@ message AnalysisResponse {
   reserved "trustScore", "history";
 }
 
-message ValidateResponse {
-  // A token to be sent to your server for use with a Userwatch server API.
-  string validation_token = 1;
+message EventResponse {
+  // A token which can be sent to your own server so it can dig into the
+  // assessment of a user following events being reported for tracking by
+  // your client application.
+  string event_token = 1;
 
   reserved 2;
   reserved "validation_signature";
@@ -111,35 +114,41 @@ message Flag {
   google.protobuf.Timestamp ignored_until = 4;
 }
 
+message Flags {
+  repeated Flag flags = 1;
+}
+
+// protolint:disable ENUM_FIELD_NAMES_PREFIX
 enum FlagType {
   FLAG_TYPE_UNSPECIFIED = 0;
-  FLAG_TYPE_ACCOUNT_SHARING = 1;
-  FLAG_TYPE_ACCOUNT_SHARING_SAME_HOUSEHOLD = 2;
-  FLAG_TYPE_SUSPECTED_ACCOUNT_COMPROMISE = 3;
-  FLAG_TYPE_CREDENTIAL_STUFFING = 4;
-  FLAG_TYPE_REPEATED_REDEMPTION = 5;
-  FLAG_TYPE_SUSPECTED_FRAUD = 6;
-  FLAG_TYPE_REPEATED_SIGNUP = 7;
-  FLAG_TYPE_SUSPECTED_BOT = 8;
-  FLAG_TYPE_RATE_LIMITED_IP = 9;
-  FLAG_TYPE_RATE_LIMITED_DEVICE = 10;
-  FLAG_TYPE_BLACKLISTED_IP = 11;
-  FLAG_TYPE_BLACKLISTED_DEVICE  = 12; // DEPRECATED
-  FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_LOCATION = 13;
-  FLAG_TYPE_ACCOUNT_COMPROMISE_NEW_DEVICE = 14;
-  FLAG_TYPE_REPEATED_ACTION = 15;
-  FLAG_TYPE_DISPOSABLE_EMAIL = 16;
-  FLAG_TYPE_USING_VPN = 17;
-  FLAG_TYPE_USING_TOR = 18;
-  FLAG_TYPE_DEVICE_BLOCKED_GLOBALLY = 19;
-  FLAG_TYPE_DEVICE_BLOCKED_FOR_THIS_USER = 20;
-  FLAG_TYPE_INVALID_EMAIL = 21;
-  FLAG_TYPE_INVALID_PHONE_NUMBER = 23;
-  FLAG_TYPE_INVALID_PHONE_TYPE = 22;
-  FLAG_TYPE_MULTIPLE_ACCOUNTS = 24;
-  FLAG_TYPE_ALREADY_USED_EMAIL = 25;
-  FLAG_TYPE_ALREADY_USED_PHONE = 26;
+  ACCOUNT_SHARING = 1;
+  ACCOUNT_SHARING_SAME_HOUSEHOLD = 2;
+  SUSPECTED_ACCOUNT_COMPROMISE = 3;
+  CREDENTIAL_STUFFING = 4;
+  REPEATED_REDEMPTION = 5;
+  SUSPECTED_FRAUD = 6;
+  REPEATED_SIGNUP = 7;
+  SUSPECTED_BOT = 8;
+  RATE_LIMITED_IP = 9;
+  RATE_LIMITED_DEVICE = 10;
+  BLACKLISTED_IP = 11;
+  BLACKLISTED_DEVICE  = 12; // DEPRECATED
+  ACCOUNT_COMPROMISE_NEW_LOCATION = 13;
+  ACCOUNT_COMPROMISE_NEW_DEVICE = 14;
+  REPEATED_ACTION = 15;
+  DISPOSABLE_EMAIL = 16;
+  USING_VPN = 17;
+  USING_TOR = 18;
+  DEVICE_BLOCKED_GLOBALLY = 19;
+  DEVICE_BLOCKED_FOR_THIS_USER = 20;
+  INVALID_EMAIL = 21;
+  INVALID_PHONE_NUMBER = 23;
+  INVALID_PHONE_TYPE = 22;
+  MULTIPLE_ACCOUNTS = 24;
+  ALREADY_USED_EMAIL = 25;
+  ALREADY_USED_PHONE = 26;
 }
+// protolint:enable ENUM_FIELD_NAMES_PREFIX
 
 message UserInfo {
   string user_id = 1;
@@ -148,6 +157,21 @@ message UserInfo {
   string user_name = 4;
   string user_image = 5;
   map<string, string> customer_supplied_values = 6;
+
+  // Address information, this would typically be shipping or home address
+  repeated PhysicalAddress addresses = 7;
+}
+
+message PhysicalAddress {
+  AddressType type = 1;
+  google.type.PostalAddress address = 2;
+}
+
+enum AddressType {
+  ADDRESS_TYPE_UNSPECIFIED = 0;
+  ADDRESS_TYPE_HOME = 1;
+  ADDRESS_TYPE_WORK = 2;
+  ADDRESS_TYPE_OTHER = 3;
 }
 
 message DeviceInfo {
@@ -165,7 +189,9 @@ message DeviceInfo {
 }
 
 enum DeviceClass {
+  // protolint:disable ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
   DEVICE_CLASS_DESKTOP = 0;
+  // protolint:enable ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
   DEVICE_CLASS_MOBILE = 1;
   DEVICE_CLASS_TABLET = 2;
   DEVICE_CLASS_GOODBOT = 3;
@@ -195,4 +221,63 @@ enum ChallengeType {
   CHALLENGE_TYPE_SMS = 2;
   CHALLENGE_TYPE_EMAIL = 3;
   CHALLENGE_TYPE_BANKSY = 4;
+}
+
+message Event {
+  oneof event_type {
+    uwproto.EventType event_type_enum = 1;
+    string customer_defined_event_type = 2;
+  }
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message CheckEmailResponse {
+  bool valid = 1;
+  EmailInvalidReason reason = 2;
+}
+
+message CheckPasswordResponse {
+  bool compromised = 1;
+}
+
+message CheckPhoneResponse {
+  bool valid = 1;
+  PhoneInvalidReason reason = 2;
+  string country_code = 3;
+  PhoneLineType line_type = 4;
+  string carrier = 5;
+  string clean_number = 6;
+}
+
+enum EmailInvalidReason {
+  EMAIL_INVALID_REASON_UNSPECIFIED = 0;
+  EMAIL_INVALID_REASON_FORMAT = 1;
+  EMAIL_INVALID_REASON_INVALID_DOMAIN = 2;
+  EMAIL_INVALID_REASON_DISPOSABLE = 3;
+  EMAIL_INVALID_REASON_INVALID_USER = 4;
+}
+
+enum PhoneLineType {
+  PHONE_LINE_TYPE_UNSPECIFIED = 0;
+  PHONE_LINE_TYPE_MOBILE = 1;
+  PHONE_LINE_TYPE_LANDLINE = 2;
+  PHONE_LINE_TYPE_VOIP = 3;
+  PHONE_LINE_TYPE_INVALID = 4;
+  PHONE_LINE_TYPE_PREPAID = 5;
+  PHONE_LINE_TYPE_OTHER = 6;
+}
+
+enum PhoneInvalidReason {
+  PHONE_INVALID_REASON_UNSPECIFIED = 0;
+  PHONE_INVALID_REASON_NUMBER_FORMAT = 1;
+  PHONE_INVALID_REASON_INACTIVE_LINE = 2;
+  PHONE_INVALID_REASON_VOIP = 3;
+  PHONE_INVALID_REASON_INVALID_TYPE = 4;
+  PHONE_INVALID_REASON_DISPOSABLE_PHONE = 5;
+}
+
+enum NullableBool {
+  NULLABLE_BOOL_UNSPECIFIED = 0;
+  NULLABLE_BOOL_FALSE = 1;
+  NULLABLE_BOOL_TRUE = 2;
 }

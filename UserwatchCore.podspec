@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UserwatchCore'
-  s.version          = '0.0.2'
+  s.version          = '0.1.0'
   s.summary          = 'Userwatch iOS core internals. Use the Userwatch pod instead.'
   s.license          = { :type => 'Proprietary', :file => 'LICENSE.md' }
 

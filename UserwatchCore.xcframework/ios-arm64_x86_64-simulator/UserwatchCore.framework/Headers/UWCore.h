@@ -7,21 +7,15 @@
                              options:(nullable NSDictionary *)opts
                                error:(NSError *_Nullable *_Nonnull)error;
 
-- (void)identifyForUid:(nullable NSString *)uid
-                 email:(nullable NSString *)email
-                 phone:(nullable NSString *)phone
-              username:(nullable NSString *)username
-                   did:(int)eventtype
-              callback:(nonnull void (^)(NSData * _Nonnull))callback
-               failure:(nonnull void (^)(NSError * _Nonnull))failure;
+- (void)assessUser:(NSData * _Nonnull)userinfo
+               did:(int)eventtype
+          callback:(nonnull void (^)(NSData * _Nonnull))callback
+           failure:(nonnull void (^)(NSError * _Nonnull))failure;
 
-- (void)validateForUid:(nullable NSString *)uid
-                 email:(nullable NSString *)email
-                 phone:(nullable NSString *)phone
-              username:(nullable NSString *)username
-                   did:(int)eventtype
-              callback:(nonnull void (^)(NSData * _Nonnull))callback
-               failure:(nonnull void (^)(NSError * _Nonnull))failure;
+- (void)trackUser:(NSData * _Nonnull)userinfo
+              did:(int)eventtype
+         callback:(nonnull void (^)(NSData * _Nonnull))callback
+          failure:(nonnull void (^)(NSError * _Nonnull))failure;
 
 @end
 

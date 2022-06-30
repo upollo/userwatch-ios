@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/UWCore.h</key>
 		<data>
-		R4QVo7FbeCyBAvXPHmxqHbymrJw=
+		iP3LhrgE7U+7c1OLXeaKUeMQ1bo=
 		</data>
 		<key>Headers/UserwatchCore.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		QJO8c780k+sKct2htOkflzoC9RI=
+		kk7I66O/TE+zccNmEIRAgxjnBk0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>gRPCCertificates.bundle/Info.plist</key>
 		<data>
-		Q0Lr42OWt2x7WJYgiFuUjCPhedo=
+		saXafpkV50g185Vwm2aFO1snZpQ=
 		</data>
 		<key>gRPCCertificates.bundle/roots.pem</key>
 		<data>
@@ -35,7 +35,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BW/zXbhHk/YOcft2rtGBPRxY8sUmzKA+0QI8IDIz3oc=
+			D5aLy4XpNCsPgodXHKgAirCF0NUBvSW8RX+U8aBCbfE=
 			</data>
 		</dict>
 		<key>Headers/UserwatchCore.h</key>
@@ -56,7 +56,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UQ63YZMFOjC5gH9KX2ZYAgJLxxGcBqZq1FWxzdmaDi4=
+			NYw8gagAF4qoL0dhNtPNHg4iaVJGdwxeHDj53sjCmPY=
 			</data>
 		</dict>
 		<key>gRPCCertificates.bundle/roots.pem</key>
