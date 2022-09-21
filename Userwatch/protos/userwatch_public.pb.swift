@@ -200,12 +200,20 @@ extension Uwproto_Outcome: CaseIterable {
 public enum Uwproto_FlagType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case unspecified // = 0
+
+  /// ACCOUNT_SHARING indicates that the same account is being shared by 
+  /// multiple people, typically on multiple devices.
   case accountSharing // = 1
   case accountSharingSameHousehold // = 2
   case suspectedAccountCompromise // = 3
   case credentialStuffing // = 4
   case repeatedRedemption // = 5
   case suspectedFraud // = 6
+
+  /// REPEATED_SIGNUP indicates if the current event type is
+  /// EventType_EVENT_TYPE_REGISTER and there has previously
+  /// been an event of that type from this device or the email/phone
+  /// has already been used.
   case repeatedSignup // = 7
   case suspectedBot // = 8
   case rateLimitedIp // = 9
@@ -216,7 +224,6 @@ public enum Uwproto_FlagType: SwiftProtobuf.Enum {
   case blacklistedDevice // = 12
   case accountCompromiseNewLocation // = 13
   case accountCompromiseNewDevice // = 14
-  case repeatedAction // = 15
   case disposableEmail // = 16
   case usingVpn // = 17
   case usingTor // = 18
@@ -225,6 +232,9 @@ public enum Uwproto_FlagType: SwiftProtobuf.Enum {
   case invalidEmail // = 21
   case invalidPhoneNumber // = 23
   case invalidPhoneType // = 22
+
+  /// MULTIPLE_ACCOUNTS indicates that the same person is using multiple accounts
+  /// typically on the same device.
   case multipleAccounts // = 24
   case alreadyUsedEmail // = 25
   case alreadyUsedPhone // = 26
@@ -251,7 +261,6 @@ public enum Uwproto_FlagType: SwiftProtobuf.Enum {
     case 12: self = .blacklistedDevice
     case 13: self = .accountCompromiseNewLocation
     case 14: self = .accountCompromiseNewDevice
-    case 15: self = .repeatedAction
     case 16: self = .disposableEmail
     case 17: self = .usingVpn
     case 18: self = .usingTor
@@ -284,7 +293,6 @@ public enum Uwproto_FlagType: SwiftProtobuf.Enum {
     case .blacklistedDevice: return 12
     case .accountCompromiseNewLocation: return 13
     case .accountCompromiseNewDevice: return 14
-    case .repeatedAction: return 15
     case .disposableEmail: return 16
     case .usingVpn: return 17
     case .usingTor: return 18
@@ -322,7 +330,6 @@ extension Uwproto_FlagType: CaseIterable {
     .blacklistedDevice,
     .accountCompromiseNewLocation,
     .accountCompromiseNewDevice,
-    .repeatedAction,
     .disposableEmail,
     .usingVpn,
     .usingTor,
@@ -1214,7 +1221,6 @@ extension Uwproto_FlagType: SwiftProtobuf._ProtoNameProviding {
     12: .same(proto: "BLACKLISTED_DEVICE"),
     13: .same(proto: "ACCOUNT_COMPROMISE_NEW_LOCATION"),
     14: .same(proto: "ACCOUNT_COMPROMISE_NEW_DEVICE"),
-    15: .same(proto: "REPEATED_ACTION"),
     16: .same(proto: "DISPOSABLE_EMAIL"),
     17: .same(proto: "USING_VPN"),
     18: .same(proto: "USING_TOR"),

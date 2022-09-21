@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Userwatch'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Userwatch iOS library'
   s.license          = { :type => 'Proprietary', :file => 'LICENSE.md' }
   s.description      = <<-DESC
@@ -20,5 +20,5 @@ DESC
   s.swift_versions = '5.3'
 
   s.dependency 'SwiftProtobuf', '~> 1.19'
-  s.dependency 'UserwatchCore', '0.1.0'
+  s.dependency 'UserwatchCore', '0.2.0'
 end

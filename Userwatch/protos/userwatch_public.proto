@@ -68,6 +68,10 @@ message AnalysisResponse {
   GeoInfo geo_info = 9;
 
 
+  //X TODO: Is this always set, or only for certain outcomes?
+  //X TODO: Does this represent the set of challenges Userwatch currently
+  //X       supports, or specifically the ones which are considered sufficient
+  //X       to deal with the current flags?
   repeated ChallengeType supported_challenges = 11;
 
 
@@ -121,12 +125,18 @@ message Flags {
 // protolint:disable ENUM_FIELD_NAMES_PREFIX
 enum FlagType {
   FLAG_TYPE_UNSPECIFIED = 0;
+  // ACCOUNT_SHARING indicates that the same account is being shared by 
+  // multiple people, typically on multiple devices.
   ACCOUNT_SHARING = 1;
   ACCOUNT_SHARING_SAME_HOUSEHOLD = 2;
   SUSPECTED_ACCOUNT_COMPROMISE = 3;
   CREDENTIAL_STUFFING = 4;
   REPEATED_REDEMPTION = 5;
   SUSPECTED_FRAUD = 6;
+  // REPEATED_SIGNUP indicates if the current event type is
+  // EventType_EVENT_TYPE_REGISTER and there has previously
+  // been an event of that type from this device or the email/phone
+  // has already been used.
   REPEATED_SIGNUP = 7;
   SUSPECTED_BOT = 8;
   RATE_LIMITED_IP = 9;
@@ -135,7 +145,6 @@ enum FlagType {
   BLACKLISTED_DEVICE  = 12; // DEPRECATED
   ACCOUNT_COMPROMISE_NEW_LOCATION = 13;
   ACCOUNT_COMPROMISE_NEW_DEVICE = 14;
-  REPEATED_ACTION = 15;
   DISPOSABLE_EMAIL = 16;
   USING_VPN = 17;
   USING_TOR = 18;
@@ -144,6 +153,8 @@ enum FlagType {
   INVALID_EMAIL = 21;
   INVALID_PHONE_NUMBER = 23;
   INVALID_PHONE_TYPE = 22;
+  // MULTIPLE_ACCOUNTS indicates that the same person is using multiple accounts
+  // typically on the same device.
   MULTIPLE_ACCOUNTS = 24;
   ALREADY_USED_EMAIL = 25;
   ALREADY_USED_PHONE = 26;
